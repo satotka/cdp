@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="cdpApp" lang="ja-jp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <title>CDP</title>
+
+  <link rel="shortcut icon" href="favicon.ico" /> 
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" 
@@ -25,47 +27,142 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
         crossorigin="anonymous"></script>
+  
+  <!-- angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="./js/main.js"></script>
 
 </head>
 <body>
-<div class="container">
-  <h1>CDP</h1>
+<div class="container" ng-controller="CdpController as cdp">
+  <h1><img src="img/tangram-48-185143.png" alt="icon" class="img-circle">CDP</h1>
 
   <div> <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#welcome" aria-controls="welcome" role="tab" data-toggle="tab">Welcome</a></li>
-      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Step.1 Profile</a></li>
-      <li role="presentation"><a href="#role" aria-controls="role" role="tab" data-toggle="tab">Step.2 Role</a></li>
-      <li role="presentation"><a href="#task" aria-controls="task" role="tab" data-toggle="tab">Step.3 Task</a></li>
-      <li role="presentation"><a href="#skill" aria-controls="skill" role="tab" data-toggle="tab">Step.4 Skill</a></li>
+      <li role="presentation"><a href="#role" aria-controls="role" role="tab" data-toggle="tab">役割</a></li>
+      <li role="presentation"><a href="#job" aria-controls="job" role="tab" data-toggle="tab">職種</a></li>
+      <li role="presentation"><a href="#task" aria-controls="task" role="tab" data-toggle="tab">タスク</a></li>
+      <li role="presentation" class="dropdown">
+        <a href="#" class="dropdown-toggle" id="myTabDrop1" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">定義 <span class="caret"></span></a>
+        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+          <li class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1" aria-expanded="false">Role Definition</a></li> 
+          <li class=""><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2" aria-expanded="false">Jobs Selection</a></li>
+        </ul>
+      </li>
+      <li role="presentation"><a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a></li>
+      <li class=""><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">debug</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="welcome">
-        <h1>Welcome to CDP</h1>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="profile">
+        <h1>説明</h1>
+        <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
+        <h1>操作</h1>
         <form>
           <div class="form-group">
             <label for="inputName">Name</label>
             <input type="text" class="form-control" id="inputName" placeholder="Your Name">
           </div>
+        </form>
+      </div><!-- .tab-pane -->
+      <div role="tabpanel" class="tab-pane" id="role">
+        <h1>Role / 役割
+          <small>
+           各部場所毎に定義。
+          </small>
+        </h1>
+        <p>自分の役割を選択してください。</p>
+        <form>
           <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">If you have saved data file, you can upload.</p>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> Check me out
-            </label>
+            <table class="table">
+              <tr> <th></th> <th>役割名称</th> </tr>
+              <tr> <td></td> <td>Not defined.</td>
+              </tr>
+            </table>
           </div>
         </form>
+      </div><!-- .tab-pane -->
+      <div role="tabpanel" class="tab-pane" id="job">
+        <h1>Jobs / 職種
+          <small>
+            <a href="https://icd.ipa.go.jp/icd/application/files/9514/7851/0542/iCD_2016V2_JobList.pdf" target="_blank">IPA iCD 2016V2 職種一覧</a>
+          </small>
+        </h1>
+        <p>現在の職種または希望の職種を選択してください。</p>
+        <table class="table" id="job_table">
+          <tr>
+            <th></th>
+            <th>Code</th>
+            <th>人材類型</th>
+            <th>人材像</th>
+            <th>出自</th>
+            <th>職種</th>
+            <th>専門分野</th>
+          </tr>
+          <tr ng-repeat="job in cdp.jobs">
+            <td><div class="checkbox"><label><input type="checkbox">Select</label></div></td>
+            <td>{{job[0]}}</td>
+            <td>{{job[1]}}</td>
+            <td>{{job[2]}}</td>
+            <td>{{job[3]}}</td>
+            <td>{{job[4]}}</td>
+            <td>{{job[5]}}</td>
+          </tr>
+        </table>
+      </div><!-- tab-pane -->
+      <div role="tabpanel" class="tab-pane" id="task">
+        <h1>Task / タスク</h1>
+        <p>タスクの一覧です。タスクに必要なスキルを確認することができます。</p>
+        <div class="radio">
+          <label><input type="radio" name="optTask" id="optTask1" value="option1" checked> 全タスクを表示 </label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optTask" id="optTask2" value="option2"> 役割・職種に対応するタスクのみ表示</label>
+        </div>
+        <table class="table" id="job_table">
+          <tr>
+            <th>タスク大分類コード</th>
+            <th>タスク大分類</th>
+            <th>タスク中分類コード</th>
+            <th>タスク中分類</th>
+            <th>タスク小分類コード</th>
+            <th>タスク小分類</th>
+            <th>評価項目コード</th>
+            <th>評価項目</th>
+          </tr>
+          <tr ng-repeat="task in cdp.tasks">
+            <td>{{task[0]}}</td>
+            <td>{{task[1]}}</td>
+            <td>{{task[2]}}</td>
+            <td>{{task[3]}}</td>
+            <td>{{task[4]}}</td>
+            <td>{{task[5]}}</td>
+            <td>{{task[6]}}</td>
+            <td>{{task[7]}}</td>
+            <td>{{task[8]}}</td>
+          </tr>
+        </table>
       </div>
-      <div role="tabpanel" class="tab-pane" id="role">.3.</div>
-      <div role="tabpanel" class="tab-pane" id="task">.4.</div>
-      <div role="tabpanel" class="tab-pane" id="skill">.4.</div>
+      <div role="tabpanel" class="tab-pane" id="refer">
+        <h1>Task / タスク
+          <small>
+            <a href="https://icd.ipa.go.jp/icd/icd/task-dictionary/dicref" target="_blank">IPA iCD 2016V2 タスク構成図</a>
+          </small>
+        </h1>
+        <h1>Skill / スキル
+          <small>
+            <a href="https://icd.ipa.go.jp/icd/icd/skill-dictionary/skillref" target="_blank">IPA iCD 2016V2 スキル構成図</a>
+          </small>
+        </h1>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="debug">
+        <h1>Jobs</h1>
+        {{cdp.jobs}}
+        <h1>Tasks</h1>
+        {{cdp.tasks}}
+      </div>
     </div>
   </div> <!-- .col -->
 </div> <!-- .container -->
