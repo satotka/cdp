@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>CDP</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+        crossorigin="anonymous">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+        crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+  <h1>CDP</h1>
+
+  <div> <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#welcome" aria-controls="welcome" role="tab" data-toggle="tab">Welcome</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Step.1 Profile</a></li>
+      <li role="presentation"><a href="#role" aria-controls="role" role="tab" data-toggle="tab">Step.2 Role</a></li>
+      <li role="presentation"><a href="#task" aria-controls="task" role="tab" data-toggle="tab">Step.3 Task</a></li>
+      <li role="presentation"><a href="#skill" aria-controls="skill" role="tab" data-toggle="tab">Step.4 Skill</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="welcome">
+        <h1>Welcome to CDP</h1>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile">
+        <form>
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Your Name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" id="exampleInputFile">
+            <p class="help-block">If you have saved data file, you can upload.</p>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Check me out
+            </label>
+          </div>
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="role">.3.</div>
+      <div role="tabpanel" class="tab-pane" id="task">.4.</div>
+      <div role="tabpanel" class="tab-pane" id="skill">.4.</div>
+    </div>
+  </div> <!-- .col -->
+</div> <!-- .container -->
+  
+</body>
+</html>
