@@ -4,6 +4,7 @@ app.controller('CdpController', ['$http', function($http) {
   var cdp = this;
 
   cdp.jobs = [['now loading...']];
+  cdp.roles = [['now loading...']];
 
   $http({method: 'GET', url: "./tasks.csv"})
   .then(function(response) {

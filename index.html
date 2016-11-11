@@ -46,8 +46,8 @@
       <li role="presentation" class="dropdown">
         <a href="#" class="dropdown-toggle" id="myTabDrop1" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">定義 <span class="caret"></span></a>
         <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-          <li class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1" aria-expanded="false">Role Definition</a></li> 
-          <li class=""><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2" aria-expanded="false">Jobs Selection</a></li>
+          <li class=""><a href="#roledef" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="roledef" aria-expanded="false">役割定義</a></li> 
+          <li class=""><a href="#jobdef" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="jobdef" aria-expanded="false">職種定義</a></li>
         </ul>
       </li>
       <li role="presentation"><a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a></li>
@@ -73,12 +73,19 @@
            各部場所毎に定義。
           </small>
         </h1>
-        <p>自分の役割を選択してください。</p>
+        <div class="well">
+          <p>自分の役割を選択してください。</p>
+        </div>
         <form>
           <div class="form-group">
             <table class="table">
-              <tr> <th></th> <th>役割名称</th> </tr>
-              <tr> <td></td> <td>Not defined.</td>
+              <tr>
+                <th></th>
+                <th>役割名称</th>
+              </tr>
+              <tr ng-repeat="role in cdp.roles">
+                <td></td>
+                <td>{{role[0]}}</td>
               </tr>
             </table>
           </div>
@@ -90,7 +97,9 @@
             <a href="https://icd.ipa.go.jp/icd/application/files/9514/7851/0542/iCD_2016V2_JobList.pdf" target="_blank">IPA iCD 2016V2 職種一覧</a>
           </small>
         </h1>
-        <p>現在の職種または希望の職種を選択してください。</p>
+        <div class="well">
+          <p>現在の職種と希望の職種を選択してください。</p>
+        </div>
         <table class="table" id="job_table">
           <tr>
             <th></th>
@@ -157,11 +166,17 @@
           </small>
         </h1>
       </div>
+      <div role="tabpanel" class="tab-pane" id="roledef">
+        <h1>Role Definition</h1>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="jobdef">
+        <h1>Job Definition</h1>
+      </div>
       <div role="tabpanel" class="tab-pane" id="debug">
         <h1>Jobs</h1>
-        {{cdp.jobs}}
+        {{cdp.jobs.length}}
         <h1>Tasks</h1>
-        {{cdp.tasks}}
+        {{cdp.tasks.length}}
       </div>
     </div>
   </div> <!-- .col -->
