@@ -51,7 +51,6 @@
         </ul>
       </li>
       <li role="presentation"><a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a></li>
-      <li class=""><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">debug</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -59,13 +58,15 @@
       <div role="tabpanel" class="tab-pane active" id="welcome">
         <h1>説明</h1>
         <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
-        <h1>操作</h1>
-        <form>
-          <div class="form-group">
-            <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Your Name">
-          </div>
-        </form>
+        <h1>職種: {{cdp.jobs.length}}</h1>
+        <button class="btn btn-default">Import</button>
+        <button class="btn btn-default">Export</button>
+        <h1>タスク: {{cdp.tasks.length}}</h1>
+        <button class="btn btn-default">Import</button>
+        <button class="btn btn-default">Export</button>
+        <h1>役割: {{cdp.roles.length}}</h1>
+        <button class="btn btn-default">Import</button>
+        <button class="btn btn-default">Export</button>
       </div><!-- .tab-pane -->
       <div role="tabpanel" class="tab-pane" id="role">
         <h1>Role / 役割
@@ -99,11 +100,12 @@
         </h1>
         <div class="well">
           <p>現在の職種と希望の職種を選択してください。</p>
+          <p>TODO: 数が多い。UI改善？事前に定義で絞る？</p>
         </div>
         <table class="table" id="job_table">
           <tr>
             <th></th>
-            <th>Code</th>
+            <th>職種コード</th>
             <th>人材類型</th>
             <th>人材像</th>
             <th>出自</th>
@@ -111,7 +113,7 @@
             <th>専門分野</th>
           </tr>
           <tr ng-repeat="job in cdp.jobs">
-            <td><div class="checkbox"><label><input type="checkbox">Select</label></div></td>
+            <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
             <td>{{job[0]}}</td>
             <td>{{job[1]}}</td>
             <td>{{job[2]}}</td>
@@ -123,7 +125,9 @@
       </div><!-- tab-pane -->
       <div role="tabpanel" class="tab-pane" id="task">
         <h1>Task / タスク</h1>
-        <p>タスクの一覧です。タスクに必要なスキルを確認することができます。</p>
+        <div class="well">
+          <p>タスクの一覧です。タスクに必要なスキルを確認することができます。</p>
+        </div>
         <div class="radio">
           <label><input type="radio" name="optTask" id="optTask1" value="option1" checked> 全タスクを表示 </label>
         </div>
@@ -167,16 +171,18 @@
         </h1>
       </div>
       <div role="tabpanel" class="tab-pane" id="roledef">
-        <h1>Role Definition</h1>
+        <h1>役割定義</h1>
+        <div class="well">
+          <ul>
+            <li>役割を作成します（初回）</li>
+            <li>役割にタスクを割り付けます。</li>
+            <li>役割定義をExportします。</li>
+            <li>以前に作成した、役割定義をImportして編集できます。</li>
+          </ul>
+        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="jobdef">
-        <h1>Job Definition</h1>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="debug">
-        <h1>Jobs</h1>
-        {{cdp.jobs.length}}
-        <h1>Tasks</h1>
-        {{cdp.tasks.length}}
+        <h1>職種定義</h1>
       </div>
     </div>
   </div> <!-- .col -->
