@@ -182,11 +182,7 @@
     </div><!-- .tab-pane -->
     <div role="tabpanel" class="tab-pane" id="roledef">
       <h1>役割定義</h1>
-      <div class="well">
-        <ul>
-          <li>役割を作成し役割にタスクを割り付けます。</li>
-        </ul>
-      </div>
+      <div class="well"> 役割を作成しタスクを割り付けます。</div>
       <div class="row">
         <div class="col-xs-6">
           <table class="table table-striped table-hover">
@@ -212,18 +208,17 @@
 
         </div><!-- .col -->
         <div class="col-xs-6">
+          <div class="well"> 役割にタスクを割り付けます。</div>
           <h1>{{cdp.editingRole.name}}</h1>
           <table class="table table-striped">
             <tr>
               <th>タスク</th>
-              <th></th>
             </tr>
             <tr ng-repeat="task in cdp.editingRole.tasks track by $index">
               <td>{{task.name}}</td>
-              <td>
-              </td>
             </tr>
           </table>
+          <div class="well"> TODO:タスク表示、選択</div>
         </div><!-- .col -->
       </div><!-- .row -->
     </div><!-- .tab-pane -->
