@@ -1,6 +1,6 @@
 var app = angular.module('cdpApp', []);
 
-app.controller('CdpController', ['$http', function($http) {
+app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   console.time("cdp1");
   var cdp = this;
   var storage = localStorage;
@@ -13,35 +13,50 @@ app.controller('CdpController', ['$http', function($http) {
   // test
   makeObject(cdp.data.tasks);
 
+  // add Role and save to localstorage.
   cdp.addRole = function () {
-    cdp.data.roles.push({code: cdp.newRole.code, name: cdp.newRole.name, tasks: []});
+    cdp.data.roles.push({
+      code: cdp.newRole.code,
+      name: cdp.newRole.name,
+      tasks: []
+    });
     storage.setItem('data', JSON.stringify(cdp.data));
   };
+
+  // select a role for edit.
   cdp.editRole = function (role) {
     cdp.editingRole = role;
   };
+
+  // remove role.
   cdp.removeRole = function (role) {
     cdp.data.roles.some(function (v, i) {
       if (v == role) cdp.data.roles.splice(i,1);
     });
     storage.setItem('data', JSON.stringify(cdp.data));
   };
+
   // parse CSV
-  cdp.parseSV = function (str, delimiter){
-    if(!delimiter) delimiter = ",";
+  cdp.parseSV = function (str, delimiter) {
+    if (!delimiter) {
+      delimiter = ",";  
+    }
     return str.split('\n').reduce(function (table, row) {
-      if(!table) return;
-      table.push(
-        //余白削除, " を除去
-        row.split(delimiter).map(function (d) {return d.trim().replace(/\"/g ,'');})
-      );
+      if (!table) return;
+      table.push(row.split(delimiter).map(function (d) {
+          // 余白削除, " を除去
+          return d.trim().replace(/\"/g ,'');
+      }));
       return table;
     }, []);
   };
   
   // Clear Strage
-  cdp.clearStrage = function () {localStorage.clear();};
+  cdp.clearStrage = function () {
+    localStorage.clear();
+  };
 
+  // get task data.
   if (!cdp.data.tasks) {
     $http({
       method: 'GET',
@@ -57,6 +72,8 @@ app.controller('CdpController', ['$http', function($http) {
       console.log(status);
     });
   }
+  
+  // get job data.
   if (!cdp.data.jobs) {
     $http({
       method: 'GET',
@@ -75,7 +92,7 @@ app.controller('CdpController', ['$http', function($http) {
   console.timeEnd("cdp1");
 }]);
 
-
+// temporary for testing.
 function makeObject(array) {
   var header = array.shift();
   console.log(header);
