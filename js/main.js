@@ -10,8 +10,9 @@ app.controller('CdpController', ['$http', function($http) {
   console.log("data:");
   console.log(cdp.data);
 
-  cdp.addRole = function (row) {
-    cdp.data.roles.push(row);
+  cdp.addRole = function () {
+    cdp.data.roles.push({code: cdp.newRole.code, name: cdp.newRole.name});
+    storage.setItem('data', JSON.stringify(cdp.data));
   };
   // parse CSV
   cdp.parseSV = function (str, delimiter){

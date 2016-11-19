@@ -81,7 +81,7 @@
                 <th></th>
                 <th>役割名称</th>
               </tr>
-              <tr ng-repeat="role in cdp.roles">
+              <tr ng-repeat="role in cdp.data.roles">
                 <td></td>
                 <td>{{role[0]}}</td>
               </tr>
@@ -177,13 +177,25 @@
             <li>以前に作成した、役割定義をImportして編集できます。</li>
           </ul>
         </div>
-        <form>
+        <form ng-submit="cdp.addRole()">
           <label>Role Code</label>
-          <input type="text" class="form-control" ng-value="cdp.newRole.code"/>
+          <input type="text" ng-model="cdp.newRole.code"
+                 size="30" placeholder="add new role here" class="form-control">
           <label>Role Name</label>
-          <input type="text" class="form-control" ng-value="cdp.newRole.name"/>
-          <button class="btn btn-default" ng-click="cdp.addRole(cdp.newRole)"> Add </button>
+          <input type="text" ng-model="cdp.newRole.name"
+                 size="30" placeholder="add new role here" class="form-control">
+          <input class="btn btn-primary" type="submit" value="add">
         </form>
+        <table class="table">
+          <tr>
+            <th>コード</th>
+            <th>名称</th>
+          </tr>
+          <tr ng-repeat="role in cdp.data.roles">
+            <td>{{role.code}}</td>
+            <td>{{role.name}}</td>
+          </tr>
+        </table>
       </div>
       <div role="tabpanel" class="tab-pane" id="jobdef">
         <h1>職種定義</h1>
