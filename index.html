@@ -171,29 +171,28 @@
         <h1>役割定義</h1>
         <div class="well">
           <ul>
-            <li>役割を作成します（初回）</li>
-            <li>役割にタスクを割り付けます。</li>
-            <li>役割定義をExportします。</li>
-            <li>以前に作成した、役割定義をImportして編集できます。</li>
+            <li>役割を作成し役割にタスクを割り付けます。</li>
           </ul>
         </div>
         <form ng-submit="cdp.addRole()">
           <label>Role Code</label>
           <input type="text" ng-model="cdp.newRole.code"
-                 size="30" placeholder="add new role here" class="form-control">
+                 size="30" placeholder="role code" class="form-control">
           <label>Role Name</label>
           <input type="text" ng-model="cdp.newRole.name"
-                 size="30" placeholder="add new role here" class="form-control">
+                 size="30" placeholder="role name" class="form-control">
           <input class="btn btn-primary" type="submit" value="add">
         </form>
         <table class="table">
           <tr>
             <th>コード</th>
             <th>名称</th>
+            <th>タスク</th>
           </tr>
           <tr ng-repeat="role in cdp.data.roles">
             <td>{{role.code}}</td>
             <td>{{role.name}}</td>
+            <td>{{role.tasks.length}}</td>
           </tr>
         </table>
       </div>
