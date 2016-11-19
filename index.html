@@ -46,6 +46,7 @@
       <li role="presentation"><a href="#roledef" aria-controls="roledef" role="tab" data-toggle="tab">役割定義</a></li>
       <li role="presentation"><a href="#jobdef" aria-controls="jobdef" role="tab" data-toggle="tab">職種定義</a></li>
       <li role="presentation"><a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a></li>
+      <li role="presentation"><a href="#debug" aria-controls="debug" role="tab" data-toggle="tab">Debug</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -82,7 +83,7 @@
                 <th>役割コード</th>
                 <th>役割名称</th>
               </tr>
-              <tr ng-repeat="role in cdp.data.roles">
+              <tr ng-repeat="role in cdp.data.roles track by $index">
                 <td></td>
                 <td>{{role.code}}</td>
                 <td>{{role.name}}</td>
@@ -205,7 +206,7 @@
             <th>名称</th>
             <th>タスク</th>
           </tr>
-          <tr ng-repeat="role in cdp.data.roles">
+          <tr ng-repeat="role in cdp.data.roles track by $index">
             <td>{{role.code}}</td>
             <td>{{role.name}}</td>
             <td>{{role.tasks.length}}</td>
@@ -214,6 +215,12 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="jobdef">
         <h1>職種定義</h1>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="debug">
+        <h1>Debug</h1>
+        <div class="well">
+          {{cdp.data.roles}}
+        </div>
       </div>
     </div>
   </div> <!-- .col -->

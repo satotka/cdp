@@ -61,5 +61,3 @@ app.controller('CdpController', ['$http', function($http) {
   }
   console.timeEnd("cdp1");
 }]);
-
-
