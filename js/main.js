@@ -4,28 +4,39 @@ app.controller('CdpController', ['$http', function($http) {
   console.time("cdp1");
   var cdp = this;
   var storage = localStorage;
-  cdp.jobs = JSON.parse(storage.getItem('jobs'));
-  cdp.tasks = JSON.parse(storage.getItem('tasks'));
+  var tmp = storage.getItem('data');
+  cdp.data = tmp ? JSON.parse(tmp) : {};
+  console.log("data:");
+  console.log(cdp.data);
 
-
-  if (!cdp.tasks) {
-    $http({method: 'GET', url: "./tasks.csv"})
-    .then(function(response) {
-      console.log('tasks:' & response.status);
-      cdp.tasks = parseSV(response.data);
-      storage.setItem('tasks',JSON.stringify(cdp.tasks));
-    }, function(response) {
-      console.log(response.status);
+  if (!cdp.data.tasks) {
+    $http({
+      method: 'GET',
+      url: "./tasks.csv"
+    }).success(function(data, status, headers, config) {
+      console.time("tasks");
+      console.log("tasks status:", status);
+      cdp.data.tasks = parseSV(data);
+      storage.setItem('data', JSON.stringify(cdp.data));
+      console.timeEnd("tasks");
+    }).error(function(data, status, headers, config) {
+      console.log("tasks error:");
+      console.log(status);
     });
   }
-  if(!cdp.jobs) {
-    $http({method: 'GET', url: "./jobs.csv"})
-    .then(function(response) {
-      console.log('jobs:' & response.status);
-      cdp.jobs = parseSV(response.data);
-      storage.setItem('jobs',JSON.stringify(cdp.jobs));
-    }, function(response) {
-      console.log(response.status);
+  if (!cdp.data.jobs) {
+    $http({
+      method: 'GET',
+      url: "./jobs.csv"
+    }).success(function(data, status, headers, config) {
+      console.time("jobs");
+      console.log("jobs status:", status);
+      cdp.data.jobs = parseSV(data);
+      storage.setItem('data', JSON.stringify(cdp.data));
+      console.timeEnd("jobs");
+    }).error(function(data, status, headers, config) {
+      console.log("jobs error:");
+      console.log(status);
     });
   }
   console.timeEnd("cdp1");

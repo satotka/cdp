@@ -58,10 +58,10 @@
       <div role="tabpanel" class="tab-pane active" id="welcome">
         <h1>説明</h1>
         <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
-        <h1>職種: {{cdp.jobs.length}}</h1>
+        <h1>職種: {{cdp.data.jobs.length}}</h1>
         <button class="btn btn-default">Import</button>
         <button class="btn btn-default">Export</button>
-        <h1>タスク: {{cdp.tasks.length}}</h1>
+        <h1>タスク: {{cdp.data.tasks.length}}</h1>
         <button class="btn btn-default">Import</button>
         <button class="btn btn-default">Export</button>
         <h1>役割: {{cdp.roles.length}}</h1>
@@ -145,7 +145,7 @@
             <th>評価項目コード</th>
             <th>評価項目</th>
           </tr>
-          <tr ng-repeat="task in cdp.tasks">
+          <tr ng-repeat="task in cdp.data.tasks| limitTo: 10">
             <td>{{task[0]}}</td>
             <td>{{task[1]}}</td>
             <td>{{task[2]}}</td>
