@@ -43,13 +43,8 @@
       <li role="presentation"><a href="#role" aria-controls="role" role="tab" data-toggle="tab">役割</a></li>
       <li role="presentation"><a href="#job" aria-controls="job" role="tab" data-toggle="tab">職種</a></li>
       <li role="presentation"><a href="#task" aria-controls="task" role="tab" data-toggle="tab">タスク</a></li>
-      <li role="presentation" class="dropdown">
-        <a href="#" class="dropdown-toggle" id="myTabDrop1" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">定義 <span class="caret"></span></a>
-        <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-          <li class=""><a href="#roledef" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="roledef" aria-expanded="false">役割定義</a></li> 
-          <li class=""><a href="#jobdef" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="jobdef" aria-expanded="false">職種定義</a></li>
-        </ul>
-      </li>
+      <li role="presentation"><a href="#roledef" aria-controls="roledef" role="tab" data-toggle="tab">役割定義</a></li>
+      <li role="presentation"><a href="#jobdef" aria-controls="jobdef" role="tab" data-toggle="tab">職種定義</a></li>
       <li role="presentation"><a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a></li>
     </ul>
 
@@ -66,7 +61,7 @@
         <h1>タスク: {{cdp.data.tasks.length}}</h1>
         <button class="btn btn-default">Import</button>
         <button class="btn btn-default">Export</button>
-        <h1>役割: {{cdp.roles.length}}</h1>
+        <h1>役割: {{cdp.data.roles.length}}</h1>
         <button class="btn btn-default">Import</button>
         <button class="btn btn-default">Export</button>
       </div><!-- .tab-pane -->
@@ -182,6 +177,13 @@
             <li>以前に作成した、役割定義をImportして編集できます。</li>
           </ul>
         </div>
+        <form>
+          <label>Role Code</label>
+          <input type="text" class="form-control" ng-value="cdp.newRole.code"/>
+          <label>Role Name</label>
+          <input type="text" class="form-control" ng-value="cdp.newRole.name"/>
+          <button class="btn btn-default" ng-click="cdp.addRole(cdp.newRole)"> Add </button>
+        </form>
       </div>
       <div role="tabpanel" class="tab-pane" id="jobdef">
         <h1>職種定義</h1>

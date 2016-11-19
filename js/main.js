@@ -5,10 +5,15 @@ app.controller('CdpController', ['$http', function($http) {
   var cdp = this;
   var storage = localStorage;
   var tmp = storage.getItem('data');
-  cdp.data = tmp ? JSON.parse(tmp) : {};
+
+  cdp.data = tmp ? JSON.parse(tmp) : {roles: []};
   console.log("data:");
   console.log(cdp.data);
-  
+
+  cdp.addRole = function (row) {
+    cdp.data.roles.push(row);
+  };
+  // parse CSV
   cdp.parseSV = function (str, delimiter){
     if(!delimiter) delimiter = ",";
     return str.split('\n').reduce(function (table, row) {
@@ -19,9 +24,9 @@ app.controller('CdpController', ['$http', function($http) {
       return table;
     }, []);
   };
-  cdp.clearStrage = function () {
-    localStorage.clear();
-  };
+  
+  // Clear Strage
+  cdp.clearStrage = function () {localStorage.clear();};
 
   if (!cdp.data.tasks) {
     $http({
