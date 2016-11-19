@@ -176,15 +176,29 @@
             <li>役割を作成し役割にタスクを割り付けます。</li>
           </ul>
         </div>
-        <form ng-submit="cdp.addRole()">
-          <label>Role Code</label>
-          <input type="text" ng-model="cdp.newRole.code"
-                 size="30" placeholder="role code" class="form-control">
-          <label>Role Name</label>
-          <input type="text" ng-model="cdp.newRole.name"
-                 size="30" placeholder="role name" class="form-control">
-          <input class="btn btn-primary" type="submit" value="add">
-        </form>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add new Role...</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add New Role</h4>
+              </div>
+              <div class="modal-body">
+                <label>Role Code</label>
+                <input type="text" ng-model="cdp.newRole.code" size="30" placeholder="role code" class="form-control">
+                <label>Role Name</label>
+                <input type="text" ng-model="cdp.newRole.name" size="30" placeholder="role name" class="form-control">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="cdp.addRole()">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <table class="table">
           <tr>
             <th>コード</th>
@@ -203,7 +217,7 @@
       </div>
     </div>
   </div> <!-- .col -->
-</div> <!-- .container -->
   
+</div> <!-- .container -->
 </body>
 </html>
