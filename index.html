@@ -34,7 +34,7 @@
 
 </head>
 <body>
-<div class="container" ng-controller="CdpController as cdp">
+<div class="container" ng-controller="CdpController">
   <h1><img src="img/tangram-48-185143.png" alt="icon" class="img-circle">CDP</h1>
 
   <ul class="nav nav-tabs" role="tablist">
@@ -67,14 +67,14 @@
       <h1>説明</h1>
       <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
       <h1>localStrage:</h1>
-      <button class="btn btn-default" ng-click="cdp.clearStrage()">Clear</button>
-      <h1>職種: {{cdp.data.jobs.length}}</h1>
+      <button class="btn btn-default" ng-click="clearStrage()">Clear</button>
+      <h1>職種: {{data.jobs.length}}</h1>
       <button class="btn btn-default">Import</button>
       <button class="btn btn-default">Export</button>
-      <h1>タスク: {{cdp.data.tasks.length}}</h1>
+      <h1>タスク: {{data.tasks.length}}</h1>
       <button class="btn btn-default">Import</button>
       <button class="btn btn-default">Export</button>
-      <h1>役割: {{cdp.data.roles.length}}</h1>
+      <h1>役割: {{data.roles.length}}</h1>
       <button class="btn btn-default">Import</button>
       <button class="btn btn-default">Export</button>
     </div><!-- .tab-pane -->
@@ -94,7 +94,7 @@
               <th></th>
               <th>役割名称</th>
             </tr>
-            <tr ng-repeat="role in cdp.data.roles track by $index">
+            <tr ng-repeat="role in data.roles track by $index">
               <td></td>
               <td>{{role.name}}</td>
             </tr>
@@ -122,7 +122,7 @@
           <th>職種</th>
           <th>専門分野</th>
         </tr>
-        <tr ng-repeat="job in cdp.data.jobs">
+        <tr ng-repeat="job in data.jobs">
           <td><div class="checkbox"><label><input type="checkbox"></label></div></td>
           <td>{{job[0]}}</td>
           <td>{{job[1]}}</td>
@@ -176,7 +176,7 @@
           <th>評価項目コード/ev.cd</th>
           <th>評価項目/ev.name</th>
         </tr>
-        <tr ng-repeat="task in cdp.data.tasks| limitTo: 10">
+        <tr ng-repeat="task in data.tasks| limitTo: 10">
           <td>{{task[0]}}</td>
           <td>{{task[1]}}</td>
           <td>{{task[2]}}</td>
@@ -212,12 +212,12 @@
               <th>タスク</th>
               <th>[Delete]</th>
             </tr>
-            <tr ng-repeat="role in cdp.data.roles track by $index" ng-click="cdp.editRole(role)">
+            <tr ng-repeat="role in data.roles track by $index" ng-click="editRole(role)">
               <td>{{role.name}}</td>
               <td> <span class="badge">{{role.tasks.length}}</span></td>
               <td>
                 <button type="button" class="btn btn-default btn-xs"
-                        aria-label="remove" ng-click="cdp.removeRole(role)">
+                        aria-label="remove" ng-click="removeRole(role)">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
               </td>
@@ -230,12 +230,12 @@
         </div><!-- .col -->
         <div class="col-xs-6">
           <div class="well"> 役割にタスクを割り付けます。</div>
-          <h1>{{cdp.editingRole.name}}</h1>
+          <h1>{{editingRole.name}}</h1>
           <table class="table table-striped">
             <tr>
               <th>タスク</th>
             </tr>
-            <tr ng-repeat="task in cdp.editingRole.tasks track by $index">
+            <tr ng-repeat="task in editingRole.tasks track by $index">
               <td>{{task.name}}</td>
             </tr>
           </table>
@@ -246,10 +246,10 @@
     <div role="tabpanel" class="tab-pane" id="debug">
       <h1>Debug</h1>
       <div class="well">
-        {{cdp.data.roles}}
+        {{data.roles}}
       </div>
       <div class="well">
-        {{cdp.header}}
+        {{header}}
       </div>
     </div><!-- .tab-pane -->
   </div><!-- .tab-content -->
@@ -267,11 +267,11 @@
         </div>
         <div class="modal-body">
           <label>Role Name</label>
-          <input type="text" ng-model="cdp.newRole.name" size="30"
+          <input type="text" ng-model="newRole.name" size="30"
                  placeholder="role name" class="form-control">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" ng-click="cdp.addRole()">Add</button>
+          <button type="button" class="btn btn-primary" ng-click="addRole()">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>

@@ -2,42 +2,41 @@ var app = angular.module('cdpApp', []);
 
 app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   console.time("cdp1");
-  var cdp = this;
   var storage = localStorage;
   var tmp = storage.getItem('data');
 
-  cdp.data = tmp ? JSON.parse(tmp) : {roles: []};
+  $scope.data = tmp ? JSON.parse(tmp) : {roles: []};
   console.log("data:");
-  console.log(cdp.data);
+  console.log($scope.data);
 
   // test
-  makeObject(cdp.data.tasks);
+  makeObject($scope.data.tasks);
 
   // add Role and save to localstorage.
-  cdp.addRole = function () {
-    cdp.data.roles.push({
-      code: cdp.newRole.code,
-      name: cdp.newRole.name,
+  $scope.addRole = function () {
+    $scope.data.roles.push({
+      code: $scope.newRole.code,
+      name: $scope.newRole.name,
       tasks: []
     });
-    storage.setItem('data', JSON.stringify(cdp.data));
+    storage.setItem('data', JSON.stringify($scope.data));
   };
 
   // select a role for edit.
-  cdp.editRole = function (role) {
-    cdp.editingRole = role;
+  $scope.editRole = function (role) {
+    $scope.editingRole = role;
   };
 
   // remove role.
-  cdp.removeRole = function (role) {
-    cdp.data.roles.some(function (v, i) {
-      if (v == role) cdp.data.roles.splice(i,1);
+  $scope.removeRole = function (role) {
+    $scope.data.roles.some(function (v, i) {
+      if (v == role) $scope.data.roles.splice(i,1);
     });
-    storage.setItem('data', JSON.stringify(cdp.data));
+    storage.setItem('data', JSON.stringify($scope.data));
   };
 
   // parse CSV
-  cdp.parseSV = function (str, delimiter) {
+  $scope.parseSV = function (str, delimiter) {
     if (!delimiter) {
       delimiter = ",";  
     }
@@ -52,20 +51,20 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   };
   
   // Clear Strage
-  cdp.clearStrage = function () {
+  $scope.clearStrage = function () {
     localStorage.clear();
   };
 
   // get task data.
-  if (!cdp.data.tasks) {
+  if (!$scope.data.tasks) {
     $http({
       method: 'GET',
       url: "./tasks.csv"
     }).success(function(data, status, headers, config) {
       console.time("tasks");
       console.log("tasks status:", status);
-      cdp.data.tasks = cdp.parseSV(data);
-      storage.setItem('data', JSON.stringify(cdp.data));
+      $scope.data.tasks = $scope.parseSV(data);
+      storage.setItem('data', JSON.stringify($scope.data));
       console.timeEnd("tasks");
     }).error(function(data, status, headers, config) {
       console.log("tasks error:");
@@ -74,15 +73,15 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   }
   
   // get job data.
-  if (!cdp.data.jobs) {
+  if (!$scope.data.jobs) {
     $http({
       method: 'GET',
       url: "./jobs.csv"
     }).success(function(data, status, headers, config) {
       console.time("jobs");
       console.log("jobs status:", status);
-      cdp.data.jobs = cdp.parseSV(data);
-      storage.setItem('data', JSON.stringify(cdp.data));
+      $scope.data.jobs = $scope.parseSV(data);
+      storage.setItem('data', JSON.stringify($scope.data));
       console.timeEnd("jobs");
     }).error(function(data, status, headers, config) {
       console.log("jobs error:");
