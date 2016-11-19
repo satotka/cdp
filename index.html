@@ -58,6 +58,8 @@
       <div role="tabpanel" class="tab-pane active" id="welcome">
         <h1>説明</h1>
         <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
+        <h1>localStrage:</h1>
+        <button class="btn btn-default" ng-click="cdp.clearStrage()">Clear</button>
         <h1>職種: {{cdp.data.jobs.length}}</h1>
         <button class="btn btn-default">Import</button>
         <button class="btn btn-default">Export</button>
