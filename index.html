@@ -139,21 +139,42 @@
         <p>タスクの一覧です。タスクに必要なスキルを確認することができます。</p>
       </div>
       <div class="radio">
-        <label><input type="radio" name="optTask" id="optTask1" value="option1" checked> 全タスクを表示 </label>
+        <label>
+          <input type="radio" name="optTask" id="optTask1" value="option1" checked>
+          全タスクを表示 
+        </label>
       </div>
       <div class="radio">
-        <label><input type="radio" name="optTask" id="optTask2" value="option2"> 役割・職種に対応するタスクのみ表示</label>
+        <label>
+          <input type="radio" name="optTask" id="optTask2" value="option2">
+          役割・職種に対応するタスクのみ表示
+        </label>
       </div>
+      <label>大分類</label>
+      <div class="input-group">
+        <input type="text" class="form-control" aria-label="..." placeholder="大分類">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default dropdown-toggle"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select... <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="#">ST:（計画・実行）戦略</a></li>
+            <li><a href="#">PL:（計画・実行）企画</a></li>
+            <li><a href="#">and others...</a></li>
+          </ul>
+        </div><!-- /btn-group -->
+      </div><!-- /input-group -->
       <table class="table" id="job_table">
         <tr>
-          <th>タスク大分類コード</th>
-          <th>タスク大分類</th>
-          <th>タスク中分類コード</th>
-          <th>タスク中分類</th>
-          <th>タスク小分類コード</th>
-          <th>タスク小分類</th>
-          <th>評価項目コード</th>
-          <th>評価項目</th>
+          <th>タスク大分類コード/cat1.cd</th>
+          <th>タスク大分類/cat1.name</th>
+          <th>タスク中分類コード/cat2.cd</th>
+          <th>タスク中分類/cat2.name</th>
+          <th>タスク小分類コード/cat3.cd</th>
+          <th>タスク小分類/cat3.name</th>
+          <th>評価項目コード/ev.cd</th>
+          <th>評価項目/ev.name</th>
         </tr>
         <tr ng-repeat="task in cdp.data.tasks| limitTo: 10">
           <td>{{task[0]}}</td>
@@ -226,6 +247,9 @@
       <h1>Debug</h1>
       <div class="well">
         {{cdp.data.roles}}
+      </div>
+      <div class="well">
+        {{cdp.header}}
       </div>
     </div><!-- .tab-pane -->
   </div><!-- .tab-content -->
