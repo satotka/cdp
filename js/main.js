@@ -11,7 +11,16 @@ app.controller('CdpController', ['$http', function($http) {
   console.log(cdp.data);
 
   cdp.addRole = function () {
-    cdp.data.roles.push({code: cdp.newRole.code, name: cdp.newRole.name});
+    cdp.data.roles.push({code: cdp.newRole.code, name: cdp.newRole.name, tasks: []});
+    storage.setItem('data', JSON.stringify(cdp.data));
+  };
+  cdp.editRole = function (role) {
+    cdp.editingRole = role;
+  };
+  cdp.removeRole = function (role) {
+    cdp.data.roles.some(function (v, i) {
+      if (v == role) cdp.data.roles.splice(i,1);
+    });
     storage.setItem('data', JSON.stringify(cdp.data));
   };
   // parse CSV
