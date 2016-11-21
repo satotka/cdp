@@ -1,6 +1,6 @@
-var app = angular.module('cdpApp', []);
+var app = angular.module('cdpApp', ["ngTable"]);
 
-app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
+app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($http, $scope, NgTableParams) {
   console.time("cdp1");
   var storage = localStorage;
   var tmp = storage.getItem('data');
@@ -9,8 +9,8 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   console.log("data:");
   console.log($scope.data);
 
-  // test
-  makeObject($scope.data.tasks);
+  // prepare param for task table.
+  $scope.taskTableParam = new NgTableParams({}, { dataset: $scope.data.tasks});
 
   // add Role and save to localstorage.
   $scope.addRole = function () {
@@ -42,6 +42,7 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
     }
     return str.split('\n').reduce(function (table, row) {
       if (!table) return;
+      if (row.length === 0) return table;
       table.push(row.split(delimiter).map(function (d) {
           // 余白削除, " を除去
           return d.trim().replace(/\"/g ,'');
@@ -66,6 +67,7 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
       $scope.data.tasks = $scope.parseSV(data);
       storage.setItem('data', JSON.stringify($scope.data));
       console.timeEnd("tasks");
+      
     }).error(function(data, status, headers, config) {
       console.log("tasks error:");
       console.log(status);
@@ -90,28 +92,3 @@ app.controller('CdpController', ['$http', '$scope', function ($http, $scope) {
   }
   console.timeEnd("cdp1");
 }]);
-
-// temporary for testing.
-function makeObject(array) {
-  var header = array.shift();
-  console.log(header);
-  console.log(array.length);
-  var task = [
-    {code: "ST", name: "（計画・実行）戦略"},
-    {code: "PL", name: "（計画・実行）企画"},
-    {code: "DV", name: "（計画・実行）開発"},
-    {code: "US", name: "（計画・実行）利活用"},
-    {code: "EV", name: "（計画・実行）評価・改善"},
-    {code: "MC", name: "管理・統制"},
-    {code: "CM", name: "推進・支援"},
-    {code: "SP", name: "その他業務"}
-  ];
-  array.forEach(function(row) {
-    task = task.map(function(taskarea) {
-      taskarea.cat1 = [];
-      return taskarea;
-    });
-  });
-   
-  return;
-}

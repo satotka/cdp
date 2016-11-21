@@ -32,6 +32,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script src="./js/main.js"></script>
 
+  <!-- ngTable -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+  <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
 </head>
 <body>
 <div class="container" ng-controller="CdpController">
@@ -65,7 +69,10 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="welcome">
       <h1>説明</h1>
-      <p> 本CDPは、IPAが策定しているiCDを参照します。 <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a></p>
+      <p>
+        本CDPは、IPAが策定しているiCDを参照します。
+        <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a>
+      </p>
       <h1>localStrage:</h1>
       <button class="btn btn-default" ng-click="clearStrage()">Clear</button>
       <h1>職種: {{data.jobs.length}}</h1>
@@ -78,6 +85,7 @@
       <button class="btn btn-default">Import</button>
       <button class="btn btn-default">Export</button>
     </div><!-- .tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="role">
       <h1>Role / 役割
         <small>
@@ -102,6 +110,7 @@
         </div>
       </form>
     </div><!-- .tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="job">
       <h1>Jobs / 職種
         <small>
@@ -133,6 +142,7 @@
         </tr>
       </table>
     </div><!-- tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="task">
       <h1>Task / タスク</h1>
       <div class="well">
@@ -161,34 +171,29 @@
           <ul class="dropdown-menu dropdown-menu-right">
             <li><a href="#">ST:（計画・実行）戦略</a></li>
             <li><a href="#">PL:（計画・実行）企画</a></li>
-            <li><a href="#">and others...</a></li>
+            <li><a href="#">DV:（計画・実行）開発</a></li>
+            <li><a href="#">US:（計画・実行）利活用</a></li>
+            <li><a href="#">EV:（計画・実行）評価・改善</a></li>
+            <li><a href="#">MC:管理・統制</a></li>
+            <li><a href="#">CM:推進・支援</a></li>
+            <li><a href="#">SP:その他業務</a></li>
           </ul>
         </div><!-- /btn-group -->
       </div><!-- /input-group -->
-      <table class="table" id="job_table">
-        <tr>
-          <th>タスク大分類コード/cat1.cd</th>
-          <th>タスク大分類/cat1.name</th>
-          <th>タスク中分類コード/cat2.cd</th>
-          <th>タスク中分類/cat2.name</th>
-          <th>タスク小分類コード/cat3.cd</th>
-          <th>タスク小分類/cat3.name</th>
-          <th>評価項目コード/ev.cd</th>
-          <th>評価項目/ev.name</th>
-        </tr>
-        <tr ng-repeat="task in data.tasks| limitTo: 10">
-          <td>{{task[0]}}</td>
-          <td>{{task[1]}}</td>
-          <td>{{task[2]}}</td>
-          <td>{{task[3]}}</td>
-          <td>{{task[4]}}</td>
-          <td>{{task[5]}}</td>
-          <td>{{task[6]}}</td>
-          <td>{{task[7]}}</td>
-          <td>{{task[8]}}</td>
-        </tr>
+      <table class="table" ng-table="taskTableParam">
+        <tr ng-repeat="task in $data">
+          <td title="'タスク大分類コード'">{{task[0]}}</td>
+          <td title="'タスク大分類'">{{task[1]}}</td>
+          <td title="'タスク中分類コード'">{{task[2]}}</td>
+          <td title="'タスク中分類'">{{task[3]}}</td>
+          <td title="'タスク小分類コード'">{{task[4]}}</td>
+          <td title="'タスク小分類'">{{task[5]}}</td>
+          <td title="'評価項目コード'">{{task[6]}}</td>
+          <td title="'評価項目'">{{task[7]}}</td>
+        </tr>        
       </table>
     </div><!-- .tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="refer">
       <h1>Task / タスク
         <small>
@@ -201,6 +206,7 @@
         </small>
       </h1>
     </div><!-- .tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="roledef">
       <h1>役割定義</h1>
       <div class="well"> 役割を作成しタスクを割り付けます。</div>
@@ -214,7 +220,7 @@
             </tr>
             <tr ng-repeat="role in data.roles track by $index" ng-click="editRole(role)">
               <td>{{role.name}}</td>
-              <td> <span class="badge">{{role.tasks.length}}</span></td>
+              <td><span class="badge">{{role.tasks.length}}</span></td>
               <td>
                 <button type="button" class="btn btn-default btn-xs"
                         aria-label="remove" ng-click="removeRole(role)">
@@ -223,10 +229,9 @@
               </td>
             </tr>
           </table>
-
-          <button type="button" class="btn btn-primary"
-                  data-toggle="modal" data-target="#myModal">Add new Role...</button>
-
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Add new Role...
+          </button>
         </div><!-- .col -->
         <div class="col-xs-6">
           <div class="well"> 役割にタスクを割り付けます。</div>
@@ -243,6 +248,7 @@
         </div><!-- .col -->
       </div><!-- .row -->
     </div><!-- .tab-pane -->
+
     <div role="tabpanel" class="tab-pane" id="debug">
       <h1>Debug</h1>
       <div class="well">
@@ -277,6 +283,7 @@
       </div>
     </div>
   </div><!-- modal -->
+
 </div> <!-- .container -->
 </body>
 </html>
