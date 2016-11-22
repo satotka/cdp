@@ -67,7 +67,22 @@ app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($
     }).success(function(data, status, headers, config) {
       console.time("tasks");
       console.log("tasks status:", status);
-      $scope.data.tasks = $scope.parseSV(data);
+      var tmpArray = $scope.parseSV(data);
+      tmpArray.shift();
+      $scope.data.tasks = tmpArray.reduce(function (a, b) {
+        var obj = {
+          category1Code: b[0],
+          category1Name: b[1],
+          category2Code: b[2],
+          category2Name: b[3],
+          category3Code: b[4],
+          category3Name: b[5]
+        };
+        if (a.length === 0 || a[a.length - 1].category3Code != obj.category3Code) {
+          a.push(obj);
+        }
+        return a;
+      }, []);
       storage.setItem('data', JSON.stringify($scope.data));
       console.timeEnd("tasks");
       
