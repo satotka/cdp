@@ -292,7 +292,10 @@
           </div><!-- .form-group -->
         </div><!-- .modal-body -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" ng-click="addRole()">Create</button>
+          <button type="button" class="btn btn-primary" ng-click="addRole()"
+                  ng-disabled="!(newRole.name && selectedTaskprofile)">
+            Create
+          </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div><!-- .modal-footer -->
       </div><!-- .modal-content -->
