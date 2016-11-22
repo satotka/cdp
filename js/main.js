@@ -28,6 +28,7 @@ app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($
   // select a role for edit.
   $scope.editRole = function (role) {
     $scope.editingRole = role;
+    storage.setItem('data', JSON.stringify($scope.data));
   };
 
   // remove role.
@@ -35,6 +36,7 @@ app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($
     $scope.data.roles.some(function (v, i) {
       if (v == role) $scope.data.roles.splice(i,1);
     });
+    delete $scope.editingRole;
     storage.setItem('data', JSON.stringify($scope.data));
   };
 
