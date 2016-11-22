@@ -113,32 +113,23 @@
         <div class="col-xs-8">
           <form ng-if="editingRole"> 
             <div class="form-group">
-              <label>Profile Name</label>
+              <label>役割名称</label>
               <input type="text" ng-model="editingRole.name" size="30"
                      placeholder="new profile name" class="form-control">
             </div><!-- .form-group -->
-            <div class="row">
-              <div class="col-xs-6">
-                <table class="table table-striped table-hover">
-                  <tr>
-                    <th>選択済みタスク</th>
-                  </tr>
-                  <tr ng-repeat="task in editingRole.tasks track by $index">
-                    <td>{{task.name}}</td>
-                  </tr>
-                </table>
-              </div><!-- .col-->
-              <div class="col-xs-6">
-                <table class="table table-striped table-hover">
-                  <tr>
-                    <th>未選択のタスク</th>
-                  </tr>
-                  <tr ng-repeat="task in editingRole.tasks track by $index">
-                    <td>{{task.name}}</td>
-                  </tr>
-                </table>
-              </div><!-- .col-->
-            </div><!-- .row -->
+            <div class="form-group">
+              <label>タスク</label>
+              <table class="table table-conserned table-striped table-hover">
+                <tr>
+                  <th>コード</th>
+                  <th>タスク</th>
+                </tr>
+                <tr ng-repeat="task in editingRole.tasks track by $index">
+                  <td>{{task.name}}</td>
+                  <td>{{task.name}}</td>
+                </tr>
+              </table>
+            </div><!-- .form-group -->
           </form>
         </div><!-- .col -->
       </div><!-- .row -->
@@ -280,53 +271,24 @@
           <div class="form-group">
             <label>役割名称</label>
             <input type="text" ng-model="newRole.name"
-                   placeholder="new name" class="form-control">
-            <p class="help-block">任意の名称を入力します</p>
-            <label>ビジネスタイプ</label>
-            <select class="form-control">
-              <option></option>
-              <option>自社向け情報システム開発・保守・運用</option>
-              <option>システム受託開発</option>
-              <option>ソフトウェア製品開発</option>
-              <option>組込みソフトウェア開発</option>
-              <option>Webサイト構築・運用</option>
-              <option>システム運用サービス（運用業務受託）</option>
-              <option>システム運用サービス（データセンタ運営）</option>
-              <option>ITコンサルティング</option>
-              <option>=====以下、新ビジネス(TODO:グループのみ表示）====</option>
-              <option>クラウドビジネス</option>
-              <option>データサイエンス</option>
-              <option>情報セキュリティ関連業務</option>
-              <option>プログラムマネジメント</option>
-              <option>IT融合</option>
+                   placeholder="任意の名称を入力" class="form-control">
+          </div><!-- .form-group -->
+          <div class="form-group">
+            <label>タスクプロフィール</label>
+            <select class="form-control" ng-model="selectedTaskprofile" ng-options="c.display for c in data.taskprofiles">
             </select>
-            <label>開発対象</label>
-            <select class="form-control">
-              <option></option>
-              <option>アプリケーションシステム</option>
-              <option>基盤システム</option>
-              <option>ソフトウェア製品</option>
-              <option>組込みソフトウェア</option>
-              <option>Webサイト</option>
-            </select>
-            <p class="help-block">開発系の場合のみ選択</p>
-            <label>開発手法</label>
-            <select class="form-control">
-              <option></option>
-              <option>ウォーターフォール</option>
-              <option>アジャイル</option>
-              <option>パッケージ利用</option>
-            </select>
-            <p class="help-block">開発系の場合のみ選択</p>
-            <label>役割別</label>
-            <select class="form-control">
-              <option></option>
-              <option>戦略的職務</option>
-              <option>企画・開発・運用職務</option>
-              <option>中小規模ビジネス推進</option>
-              <option>中小規模ビジネス推進</option>
-              <option>特定職務</option>
-            </select>
+          </div><!-- .form-group -->
+          <div class="form-group">
+            <label>種別</label>
+            <p>{{selectedTaskprofile.category}}</p>
+          </div><!-- .form-group -->
+          <div class="form-group">
+            <label>グループ</label>
+            <p>{{selectedTaskprofile.group}}</p>
+          </div><!-- .form-group -->
+          <div class="form-group">
+            <label>説明</label>
+            <p>{{selectedTaskprofile.desc}}</p>
           </div><!-- .form-group -->
         </div><!-- .modal-body -->
         <div class="modal-footer">

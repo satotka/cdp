@@ -110,5 +110,37 @@ app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($
       console.log(status);
     });
   }
+  // get taskprofile data.
+
+  if (!$scope.data.taskprofiles) {
+    $http({
+      method: 'GET',
+      url: "./taskprofiles.csv"
+    }).success(function(data, status, headers, config) {
+      console.time("taskprofiles");
+      console.log("taskprofiles status:", status);
+      var tmpArray = $scope.parseSV(data);
+      tmpArray.shift();
+      $scope.data.taskprofiles = tmpArray.reduce(function (a, b) {
+        var obj = {
+          code: b[0],
+          category: b[1],
+          group: b[2],
+          name: b[3],
+          desc: b[4],
+          display: b[0] + ' / ' + b[3]
+        };
+        if (a.length === 0 || a[a.length - 1].code != obj.code) {
+          a.push(obj);
+        }
+        return a;
+      }, []);
+      storage.setItem('data', JSON.stringify($scope.data));
+      console.timeEnd("taskprofiles");
+    }).error(function(data, status, headers, config) {
+      console.log("taskprofiles error:");
+      console.log(status);
+    });
+  }
   console.timeEnd("cdp1");
 }]);
