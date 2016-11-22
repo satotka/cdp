@@ -46,6 +46,9 @@
       <a href="#welcome" aria-controls="welcome" role="tab" data-toggle="tab">Welcome</a>
     </li>
     <li role="presentation">
+      <a href="#roledef" aria-controls="roledef" role="tab" data-toggle="tab">役割定義</a>
+    </li>
+    <li role="presentation">
       <a href="#role" aria-controls="role" role="tab" data-toggle="tab">役割</a>
     </li>
     <li role="presentation">
@@ -53,9 +56,6 @@
     </li>
     <li role="presentation">
       <a href="#task" aria-controls="task" role="tab" data-toggle="tab">タスク</a>
-    </li>
-    <li role="presentation">
-      <a href="#roledef" aria-controls="roledef" role="tab" data-toggle="tab">役割定義</a>
     </li>
     <li role="presentation">
       <a href="#refer" aria-controls="refer" role="tab" data-toggle="tab">参照</a>
@@ -73,17 +73,69 @@
         本CDPは、IPAが策定しているiCDを参照します。
         <a href="https://icd.ipa.go.jp/icd/icd" target="_blank"> --> iCDとは</a>
       </p>
-      <h1>localStrage:</h1>
-      <button class="btn btn-default" ng-click="clearStrage()">Clear</button>
-      <h1>職種: {{data.jobs.length}}</h1>
-      <button class="btn btn-default">Import</button>
-      <button class="btn btn-default">Export</button>
-      <h1>タスク: {{data.tasks.length}}</h1>
-      <button class="btn btn-default">Import</button>
-      <button class="btn btn-default">Export</button>
       <h1>役割: {{data.roles.length}}</h1>
-      <button class="btn btn-default">Import</button>
-      <button class="btn btn-default">Export</button>
+      <h1>タスク: {{data.tasks.length}}</h1>
+      <h1>職種: {{data.jobs.length}}</h1>
+    </div><!-- .tab-pane -->
+
+    <div role="tabpanel" class="tab-pane" id="roledef">
+      <h1>役割定義</h1>
+      <div class="row">
+        <div class="col-xs-4">
+          <table class="table table-striped table-hover">
+            <tr>
+              <th>役割名称</th><th>タスク</th><th>[削除]</th>
+            </tr>
+            <tr ng-repeat="role in data.roles track by $index" ng-click="editRole(role)">
+              <td>{{role.name}}</td>
+              <td><span class="badge">{{role.tasks.length}}</span></td>
+              <td>
+                <button type="button" class="btn btn-default btn-xs"
+                        aria-label="remove" ng-click="removeRole(role)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <button type="button" class="btn btn-primary"
+                  data-toggle="modal" data-target="#mdlCreateTaskProfile">
+            新規...
+          </button>
+          <button class="btn btn-default">Import</button>
+          <button class="btn btn-default">Export</button>
+        </div><!-- .col -->
+        <div class="col-xs-8">
+          <form ng-if="editingRole"> 
+            <div class="form-group">
+              <label>Profile Name</label>
+              <input type="text" ng-model="editingRole.name" size="30"
+                     placeholder="new profile name" class="form-control">
+            </div><!-- .form-group -->
+            <div class="row">
+              <div class="col-xs-6">
+                <table class="table table-striped table-hover">
+                  <tr>
+                    <th>選択済みタスク</th>
+                  </tr>
+                  <tr ng-repeat="task in editingRole.tasks track by $index">
+                    <td>{{task.name}}</td>
+                  </tr>
+                </table>
+              </div><!-- .col-->
+              <div class="col-xs-6">
+                <table class="table table-striped table-hover">
+                  <tr>
+                    <th>未選択のタスク</th>
+                  </tr>
+                  <tr ng-repeat="task in editingRole.tasks track by $index">
+                    <td>{{task.name}}</td>
+                  </tr>
+                </table>
+              </div><!-- .col-->
+            </div><!-- .row -->
+          </form>
+        </div><!-- .col -->
+      </div><!-- .row -->
     </div><!-- .tab-pane -->
 
     <div role="tabpanel" class="tab-pane" id="role">
@@ -207,50 +259,12 @@
       </h1>
     </div><!-- .tab-pane -->
 
-    <div role="tabpanel" class="tab-pane" id="roledef">
-      <h1>役割定義</h1>
-      <div class="well"> 役割を作成しタスクを割り付けます。</div>
-      <div class="row">
-        <div class="col-xs-6">
-          <table class="table table-striped table-hover">
-            <tr>
-              <th>役割</th>
-              <th>タスク</th>
-              <th>[Delete]</th>
-            </tr>
-            <tr ng-repeat="role in data.roles track by $index" ng-click="editRole(role)">
-              <td>{{role.name}}</td>
-              <td><span class="badge">{{role.tasks.length}}</span></td>
-              <td>
-                <button type="button" class="btn btn-default btn-xs"
-                        aria-label="remove" ng-click="removeRole(role)">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
-              </td>
-            </tr>
-          </table>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Add new Role...
-          </button>
-        </div><!-- .col -->
-        <div class="col-xs-6">
-          <div class="well"> 役割にタスクを割り付けます。</div>
-          <h1>{{editingRole.name}}</h1>
-          <table class="table table-striped">
-            <tr>
-              <th>タスク</th>
-            </tr>
-            <tr ng-repeat="task in editingRole.tasks track by $index">
-              <td>{{task.name}}</td>
-            </tr>
-          </table>
-          <div class="well"> TODO:タスク表示、選択</div>
-        </div><!-- .col -->
-      </div><!-- .row -->
-    </div><!-- .tab-pane -->
-
     <div role="tabpanel" class="tab-pane" id="debug">
       <h1>Debug</h1>
+      <hr />
+      <h1>localStrage:</h1>
+      <button class="btn btn-default" ng-click="clearStrage()">Clear</button>
+      <hr />
       <div class="well">
         {{data.roles}}
       </div>
@@ -260,28 +274,76 @@
     </div><!-- .tab-pane -->
   </div><!-- .tab-content -->
   
-  <!-- Modal for add Role -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-       aria-labelledby="myModalLabel">
+  <!-- Modal for craete taskprofile -->
+  <div class="modal fade" id="mdlCreateTaskProfile" tabindex="-1" role="dialog"
+       aria-labelledby="mdlCreateTaskProfile">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title" id="myModalLabel">Add new Role</h4>
-        </div>
+          <h4 class="modal-title" id="myModalLabel">Create Task Profile</h4>
+        </div><!-- .modal-header -->
         <div class="modal-body">
-          <label>Role Name</label>
-          <input type="text" ng-model="newRole.name" size="30"
-                 placeholder="role name" class="form-control">
-        </div>
+          <div class="form-group">
+            <label>役割名称</label>
+            <input type="text" ng-model="newRole.name"
+                   placeholder="new name" class="form-control">
+            <p class="help-block">任意の名称を入力します</p>
+            <label>ビジネスタイプ</label>
+            <select class="form-control">
+              <option></option>
+              <option>自社向け情報システム開発・保守・運用</option>
+              <option>システム受託開発</option>
+              <option>ソフトウェア製品開発</option>
+              <option>組込みソフトウェア開発</option>
+              <option>Webサイト構築・運用</option>
+              <option>システム運用サービス（運用業務受託）</option>
+              <option>システム運用サービス（データセンタ運営）</option>
+              <option>ITコンサルティング</option>
+              <option>=====以下、新ビジネス(TODO:グループのみ表示）====</option>
+              <option>クラウドビジネス</option>
+              <option>データサイエンス</option>
+              <option>情報セキュリティ関連業務</option>
+              <option>プログラムマネジメント</option>
+              <option>IT融合</option>
+            </select>
+            <label>開発対象</label>
+            <select class="form-control">
+              <option></option>
+              <option>アプリケーションシステム</option>
+              <option>基盤システム</option>
+              <option>ソフトウェア製品</option>
+              <option>組込みソフトウェア</option>
+              <option>Webサイト</option>
+            </select>
+            <p class="help-block">開発系の場合のみ選択</p>
+            <label>開発手法</label>
+            <select class="form-control">
+              <option></option>
+              <option>ウォーターフォール</option>
+              <option>アジャイル</option>
+              <option>パッケージ利用</option>
+            </select>
+            <p class="help-block">開発系の場合のみ選択</p>
+            <label>役割別</label>
+            <select class="form-control">
+              <option></option>
+              <option>戦略的職務</option>
+              <option>企画・開発・運用職務</option>
+              <option>中小規模ビジネス推進</option>
+              <option>中小規模ビジネス推進</option>
+              <option>特定職務</option>
+            </select>
+          </div><!-- .form-group -->
+        </div><!-- .modal-body -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" ng-click="addRole()">Add</button>
+          <button type="button" class="btn btn-primary" ng-click="addRole()">Create</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
+        </div><!-- .modal-footer -->
+      </div><!-- .modal-content -->
+    </div><!-- .modal-dailog -->
   </div><!-- modal -->
 
 </div> <!-- .container -->

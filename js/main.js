@@ -17,7 +17,10 @@ app.controller('CdpController', ['$http', '$scope', 'NgTableParams', function ($
     $scope.data.roles.push({
       code: $scope.newRole.code,
       name: $scope.newRole.name,
-      tasks: []
+      tasks: [
+        {name: 'test'},
+        {name: 'test2'}
+      ]
     });
     storage.setItem('data', JSON.stringify($scope.data));
   };
